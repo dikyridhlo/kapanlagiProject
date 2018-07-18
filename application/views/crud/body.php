@@ -46,7 +46,7 @@
           	</div>
           	<div class="form-group">
 	          	<label for="image">IMAGE</label>
-	          	<input type="file" name="image" class="form-control" accept=".jpg" id="image" max="1">
+	          	<input type="file" name="image" class="form-control" accept=".jpg" id="image">
           	</div>
           </div>
           	<div class="modal-footer">
@@ -91,7 +91,6 @@
 
 		    <!-- Modal content-->
 		    <div class="modal-content">
-		      <img src="<?php echo $key[0]['FOTO'] ?>" alt="">
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
