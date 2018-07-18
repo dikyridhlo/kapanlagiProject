@@ -15,11 +15,10 @@ class Kapanlagi extends CI_Controller {
 	}
 	public function index()
 	{
-		// $data['content'] = $this->db->get('kapanlagi');
-		$data = $this->crud_model->joindata('kapanlagi','foto_kapanlagi','ID','ID_KAPANLAGI');
-		$data = array('data'=> $data);
-		$this->load->view('layout/header');
-		$this->load->view('crud/body.php',$data);
+        $this->load->view('layout/header');
+        $data = $this->crud_model->getdata('kapanlagi');
+        $data = array('data' => $data);
+        $this->load->view('crud/body', $data);
 	}
 
 	public function insert(){
@@ -29,9 +28,11 @@ class Kapanlagi extends CI_Controller {
         'tgl_lahir' => $this->input->post('tl'),
         'email' => $this->input->post('email')
 		);
-		if (empty($_FILES['image']['filename'])) {
+		if (empty($_FILES['image']['name'])) {
+			echo "FILE TDK ADA";
 			$this->crud_model->insertdata('kapanlagi',$data);
 		}else{
+			echo "FILE ADA";
 			$path600x600 = $this->imageconvert->namefile('600x600','image');
 			$path240x240= $this->imageconvert->namefile('240x240','image');
 
@@ -56,16 +57,18 @@ class Kapanlagi extends CI_Controller {
 		redirect('','refresh');
 	}
 	public function delete(){
+		$id = $this->input->get('id');
+		$data['id'] = $id;
 		$cari = $this->db->get_where('foto_kapanlagi', array('ID_KAPANLAGI'=>$id));
 		$result = $cari->result_array();
 		if (count($result) == 0) {
-		$id = $this->input->get('id');
-		$data['id'] = $id;
 		$this->crud_model->deletedata('kapanlagi', $data);
 		}else{
 			foreach ($result as $key) {
 				unlink($key['FOTO']);
 			}
+		$this->crud_model->deletedata('kapanlagi', $data);
+
 		}
 		redirect('','refresh');
 
