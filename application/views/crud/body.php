@@ -80,7 +80,7 @@
 			<td><?php echo $key['EMAIL'] ?></td>
 			<td>
 				<button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#updatemodal<?php echo $key['ID'] ?>"><i class="fa fa-pencil"></i></button>
-				<a href="<?php echo base_url('kapanlagi/delete').'?id='.$key['ID'] ?>" title="" class="btn btn-md btn-danger"><i class="fa fa-trash-o"></i></a>
+				<a href="<?php echo base_url('kapanlagi/delete').'?id='.$key['ID'] ?>" title="" class="del btn btn-md btn-danger"><i class="fa fa-trash-o"></i></a>
 
 			</td>
 		</tr>
@@ -199,6 +199,13 @@
 			}
 
 		});
+		$('.del').click(function(event) {
+			if (confirm("Are delete this item?")) {
+			        return true;
+			    }
+			    return false;
+		});
+
 	});
 	
 </script>
