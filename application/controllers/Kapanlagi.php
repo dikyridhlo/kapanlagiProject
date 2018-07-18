@@ -56,12 +56,23 @@ class Kapanlagi extends CI_Controller {
 		redirect('','refresh');
 	}
 	public function delete(){
+		$cari = $this->db->get_where('foto_kapanlagi', array('ID_KAPANLAGI'=>$id));
+		$result = $cari->result_array();
+		if (count($result) == 0) {
 		$id = $this->input->get('id');
 		$data['id'] = $id;
 		$this->crud_model->deletedata('kapanlagi', $data);
+		}else{
+			foreach ($result as $key) {
+				unlink($key['FOTO']);
+			}
+		}
 		redirect('','refresh');
 
 	}
+
+
+
 	public function update(){
 		$id = $this->input->post('id');
 		$file = $_FILES['upimage']['name'];
